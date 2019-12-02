@@ -16,4 +16,4 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use("Route");
 
-Route.get("/", "CustomerController.index");
+Route.get("/customer", "CustomerController.index");
