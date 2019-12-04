@@ -1,25 +1,32 @@
 <template>
   <div class="hello">
-    <div v-for="item in customerData" :key="item.id">
-      <p>{{ item.first_name }} {{ item.last_name }}</p>
-      <p>{{ item.date }}</p>
+    <div v-for="item in formatDate" :key="item.id">
+      <p>{{ item }}</p>
+    </div>
+    <div v-for="item in mapEventTimes" :key="item.id">
+      <p>{{ item }}</p>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 
 export default {
   name: "HelloWorld",
   mounted() {
-    this.loadData();
+    this.fetchData();
+    this.test();
   },
   computed: {
-    ...mapState("data", ["customerData"])
+    ...mapState("data", ["customerData"]),
+    ...mapGetters("data", ["formatDate", "mapEventTimes"])
   },
   methods: {
-    ...mapActions("data", ["loadData"])
+    ...mapActions("data", ["fetchData"]),
+    test() {
+      return this.mapEventTimes;
+    }
   }
 };
 </script>
