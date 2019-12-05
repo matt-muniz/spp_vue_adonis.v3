@@ -5,12 +5,13 @@ export default {
   namespaced: true,
   state: {
     customerData: [],
-    eventTimes: {
-      em: "10 - 12",
-      ea: "1 - 3",
-      en: "4 - 6"
-    },
-    availableTimes: []
+    eventTimes: [
+      { value: "em", time: "10 - 12" },
+      { value: "ea", time: "1 - 3" },
+      { value: "en", time: "4 - 6" }
+    ],
+    availableTimes: [],
+    events: []
   },
   actions: {
     fetchData: ({ commit }) => {
@@ -34,13 +35,16 @@ export default {
         date ? moment(date).format("dddd, MMMM Do YYYY") : ""
       );
     },
-    mapEventTimes: state => {
-      return state.customerData.map(({ time }) => {
-        if (time == "en") {
-          return state.eventTimes.em;
-        } else {
-          return state.eventTimes.en;
-        }
+    mapEventTimes: () => {},
+    events: state => {
+      return state.customerData.map(({ event, date }) => {
+        const newDate = date ? moment(date).format("YYYY-MM-DD") : "";
+
+        const s = {
+          name: event,
+          start: newDate
+        };
+        return (state.events = s);
       });
     }
   }
